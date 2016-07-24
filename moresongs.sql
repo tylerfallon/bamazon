@@ -10,3 +10,5 @@ CREATE TABLE products (
   StockQuantity INT NULL,
   PRIMARY KEY (Item_ID)
 );
+
+SELECT * FROM products;

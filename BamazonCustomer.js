@@ -42,18 +42,28 @@ var promptCustomer = function(res) {
             name: 'choice',
             message: 'What would you like to purchase?'
         }]).then(function(val) {
-
-               
                 var correct = false;
-
                 for (var i = 0; i < res.length; i++) {
                     if (val.choice == i) {
                         console.log('Valid!')
                         var correct = true;
-                    }
-                    else {
-                    
-                    }                    	
+                        inquirer.prompt([{
+                            type: 'input',
+                            name: 'choice',
+                            message: 'How many would you like to purchase?'
+                            }]).then(function(val) {
+                                console.log(val.choice)
+                                console.log(res);
+                                for (var i=0; i<res.length; i++) {
+                                    if (val.choice <= res[i].StockQuantity) {
+                                        console.log('you can buy it')
+                                    }
+                                    else {
+                                        console.log('you cannot buy it')
+                                        }
+                                }
+                            });
+
 	                //1. TODO: IF THE PRODUCT EXISTS, SET correct = true and ASK THE USER TO SEE HOW MANY OF THE PRODUCT THEY WOULD LIKE TO BUY//
 	               	//2. TODO: CHECK TO SEE IF THE AMOUNT REQUESTED IS LESS THAN THE AMOUNT THAT IS AVAILABLE//                       
 	                //3. TODO: UPDATE THE MYSQL TO REDUCE THE StockQuanaity by the THE AMOUNT REQUESTED  - UPDATE COMMAND!
@@ -64,6 +74,7 @@ var promptCustomer = function(res) {
                 if (i == res.length && correct == false) {
                     promptCustomer(res);
                 }
+            }
             });
 }
 
